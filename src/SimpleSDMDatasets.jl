@@ -36,6 +36,7 @@ function slurp(
     ::Type{D};
     kwargs...,
 ) where {P <: RasterProvider, D <: RasterDataset}
+    # TODO use traits to drop pairs from kwargs
     url, fnm, dir = SimpleSDMDatasets.source(P, D; kwargs...)
     # Check for path existence
     isdir(dir) || mkpath(dir)
