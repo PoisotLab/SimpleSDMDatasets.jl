@@ -1,7 +1,7 @@
 EarthEnvDataset = Union{LandCover}
 
 # Update provisioning
-provides(::Type{EarthEnv}) = Base.uniontypes(LandCover)
+provides(::Type{EarthEnv}) = Base.uniontypes(EarthEnvDataset)
 provides(::Type{EarthEnv}, ::Type{T}) where {T <: EarthEnvDataset} = true
 
 # Update the layers
@@ -39,5 +39,9 @@ function source(
     else
         "Consensus_reduced_class_$(var_code).tif"
     end
-    return (url = root * stem, filename = stem, outdir = destination(EarthEnv, LandCover))
+    return (
+        url = root * stem,
+        filename = lowercase(stem),
+        outdir = destination(EarthEnv, LandCover),
+    )
 end

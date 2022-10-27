@@ -2,6 +2,7 @@ module TestSSDWorldClim
 
 using SimpleSDMDatasets
 using Test
+using Dates
 
 @test WorldClim <: RasterProvider
 
@@ -18,7 +19,10 @@ end
 @test SimpleSDMDatasets.layers(WorldClim, AverageTemperature) |> isnothing
 @test SimpleSDMDatasets.layers(WorldClim, BioClim) |> !isnothing
 
-@info slurp(WorldClim, BioClim; resolution = 10.0)
-@info slurp(WorldClim, MinimumTemperature; resolution = 10.0)
+@info slurp(WorldClim, BioClim; resolution = 10.0, layer = "BIO8")
+@info slurp(WorldClim, BioClim; resolution = 5.0, layer = "BIO4")
+@info slurp(WorldClim, Elevation; resolution = 5.0)
+@info slurp(WorldClim, MinimumTemperature; resolution = 10.0, month = Month(4))
+@info slurp(WorldClim, MinimumTemperature; resolution = 2.5, month = Month(12))
 
 end

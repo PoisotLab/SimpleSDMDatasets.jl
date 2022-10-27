@@ -26,6 +26,7 @@ resolutions(::Type{WorldClim}) =
 # Update the months
 months(::Type{WorldClim}) = Month.(1:12)
 months(::Type{WorldClim}, ::Type{BioClim}) = nothing
+months(::Type{WorldClim}, ::Type{Elevation}) = nothing
 
 # Update the layers
 layers(::Type{WorldClim}, ::Type{BioClim}) = "BIO" .* string.(1:19)
@@ -43,10 +44,53 @@ _var_slug(::Type{WorldClim}, ::Type{BioClim}) = "bio"
 _var_slug(::Type{WorldClim}, ::Type{Elevation}) = "elev"
 
 # Get the dataset source
-function source(::Type{WorldClim}, ::Type{D}; resolution=10.) where {D <: WorldClimDataset}
+function source(
+    ::Type{WorldClim},
+    ::Type{D};
+    resolution = 10.0,
+    args...
+) where {D <: WorldClimDataset}
     res_code = get(resolutions(WorldClim, D), resolution, "10m")
     var_code = _var_slug(WorldClim, D)
     root = "https://geodata.ucdavis.edu/climate/worldclim/2_1/base/"
     stem = "wc2.1_$(res_code)_$(var_code).zip"
-    return (url=root*stem, filename=stem, outdir=destination(WorldClim, D))
+    return (
+        url = root * stem,
+        filename = lowercase(stem),
+        outdir = destination(WorldClim, D),
+    )
+end
+
+function layername(
+    ::Type{WorldClim},
+    ::Type{D};
+    resolution = 10.0,
+    month = Month(1),
+) where {D <: WorldClimDataset}
+    res_code = get(resolutions(WorldClim, D), resolution, "10m")
+    var_code = _var_slug(WorldClim, D)
+    layer_code = lpad(string(month.value), 2, '0')
+    return "wc2.1_$(res_code)_$(var_code)_$(layer_code).tif"
+end
+
+function layername(
+    ::Type{WorldClim},
+    ::Type{BioClim};
+    resolution = 10.0,
+    layer = "BIO1",
+)
+    res_code = get(resolutions(WorldClim, BioClim), resolution, "10m")
+    var_code = _var_slug(WorldClim, BioClim)
+    layer_code = (layer isa Integer) ? layer : findfirst(isequal(layer), layers(WorldClim, BioClim))
+    return "wc2.1_$(res_code)_$(var_code)_$(layer_code).tif"
+end
+
+function layername(
+    ::Type{WorldClim},
+    ::Type{Elevation};
+    resolution = 10.0,
+)
+    res_code = get(resolutions(WorldClim, Elevation), resolution, "10m")
+    var_code = _var_slug(WorldClim, Elevation)
+    return "wc2.1_$(res_code)_$(var_code).tif"
 end

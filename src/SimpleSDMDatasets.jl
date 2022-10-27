@@ -2,6 +2,7 @@ module SimpleSDMDatasets
 
 import Downloads
 using Dates
+using ZipFile
 
 # Set the potential paths for downloads
 const _data_storage_folders = first([
@@ -43,9 +44,18 @@ function slurp(
         Downloads.download(url, joinpath(dir, fnm))
     end
     # Check for the fileinfo
-    @info SimpleSDMDatasets.downloadtype(P, D)
-    @info SimpleSDMDatasets.filetype(P, D)
-    @info url
+    if isequal(:zip)(SimpleSDMDatasets.downloadtype(P, D))
+        # Extract only the layername
+        r = ZipFile.Reader(joinpath(dir, fnm))
+        for f in r.files
+            if isequal(layername(P, D; kwargs...))(f.name)
+                fnm = layername(P, D; kwargs...)
+                write(joinpath(dir, f.name), read(f, String))
+            end
+        end
+        close(r)
+    end
+    return (joinpath(dir, fnm), SimpleSDMDatasets.filetype(P, D), 1)
 end
 export slurp
 
