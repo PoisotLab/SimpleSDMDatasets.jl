@@ -16,6 +16,8 @@ end
 @test SimpleSDMDatasets.layers(CHELSA, BioClim) |> !isnothing
 
 @info slurp(CHELSA, BioClim; layer = "BIO8")
+@info slurp(CHELSA, BioClim; layer = "BIO1")
+@info slurp(CHELSA, BioClim; layer = "BIO12")
 @info SimpleSDMDatasets.layers(CHELSA, BioClim)
 
 end
