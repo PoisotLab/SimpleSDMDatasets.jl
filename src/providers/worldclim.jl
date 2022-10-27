@@ -1,4 +1,4 @@
-# Define the datasets that worldclim can provide
+# Define the datasets that worldclim can provide - all of the entries in this array are `RasterDatasets`
 wcdat = [
     BioClim,
     Elevation,
@@ -12,8 +12,7 @@ wcdat = [
 ]
 WorldClimDataset = Union{wcdat...}
 
-# Create the valid WorldClim parametric types
-struct WorldClim{D <: WorldClimDataset} <: RasterProvider end
+struct WorldClim{T} <: RasterProvider where {T <: WorldClimDataset} end
 
 """
     datasets(::Type{WorldClim})
@@ -41,6 +40,38 @@ which is used to form the correct url.
 resolutions(::Type{WorldClim{T}}) where {T <: WorldClimDataset} =
     Dict([0.5 => "30s", 2.5 => "2.5m", 5.0 => "5m", 10.0 => "10m"])
 
+function has_resolution(::Type{WorldClim{T}}) where {T <: WorldClimDataset}
+    return Dict([0.5 => "30s", 2.5 => "2.5m", 5.0 => "5m", 10.0 => "10m"])
+end
+
+has_month(::Type{WorldClim{T}}) where {T <: WorldClimDataset} = Month.(1:12)
+has_month(::Type{WorldClim{BioClim}}) = nothing
+
+has_layer(::Type{WorldClim{T}}) where {T <: WorldClimDataset} = nothing
+function has_layer(::Type{WorldClim{BioClim}})
+    return [
+        ("BIO1", "Annual Mean Temperature"),
+        ("BIO2", "Mean Diurnal Range"),
+        ("BIO3", "Isothermality"),
+        ("BIO4", "Temperature Seasonality"),
+        ("BIO5", "Max Temperature of Warmest Month"),
+        ("BIO6", "Min Temperature of Coldest Month"),
+        ("BIO7", "Temperature Annual Range"),
+        ("BIO8", "Mean Temperature of Wettest Quarter"),
+        ("BIO9", "Mean Temperature of Driest Quarter"),
+        ("BIO10", "Mean Temperature of Warmest Quarter"),
+        ("BIO11", "Mean Temperature of Coldest Quarter"),
+        ("BIO12", "Annual Precipitation"),
+        ("BIO13", "Precipitation of Wettest Month"),
+        ("BIO14", "Precipitation of Driest Month"),
+        ("BIO15", "Precipitation Seasonality"),
+        ("BIO16", "Precipitation of Wettest Quarter"),
+        ("BIO17", "Precipitation of Driest Quarter"),
+        ("BIO18", "Precipitation of Warmest Quarter"),
+        ("BIO19", "Precipitation of Coldest Quarter"),
+    ]
+end
+
 # The following functions are the list of URL codes for the datasets. Note that
 # they dispatch on the dataset within the context of worldclim
 _varname(::Type{WorldClim{MinimumTemperature}}) = "tmin"
@@ -53,8 +84,19 @@ _varname(::Type{WorldClim{WaterVaporPressure}}) = "vapr"
 _varname(::Type{WorldClim{BioClim}}) = "bio"
 _varname(::Type{WorldClim{Elevation}}) = "elev"
 
-function url(ref::Type{WorldClim{T}}; resolution = 5.0) where {T <: WorldClimDataset}
+function dataset_folder(::Type{WorldClim{T}}) where {T <: WorldClimDataset}
+    datapath = joinpath(SimpleSDMDatasets._LAYER_PATH, string(WorldClim), string(T))
+    isdir(datapath) || mkdir(datapath)
+    return datapath
+end
+
+function dataset_spec(
+    ref::Type{WorldClim{T}};
+    resolution = 5.0,
+) where {T <: WorldClimDataset}
     res_code = get(resolutions(ref), resolution, "10m")
     var_code = _varname(ref)
-    return "https://geodata.ucdavis.edu/climate/worldclim/2_1/base/wc2.1_$(res_code)_$(var_code)_.zip"
+    url = "https://geodata.ucdavis.edu/climate/worldclim/2_1/base/wc2.1_$(res_code)_$(var_code).zip"
+    filename = joinpath(dataset_folder(WorldClim{T}), "wc2.1_$(res_code)_$(var_code).zip")
+    return (url, filename)
 end

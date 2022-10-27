@@ -3,7 +3,7 @@
 What I want to write is:
 
 ~~~julia
-SimpleSDMPredictor(WorldClim{BioClim}, SSP000{CanESM12}; resolution=0.5, year=Year(2050))
+SimpleSDMPredictor(WorldClim{BioClim}, SSP126{ACCESSCM2}; resolution=0.5, year=Year(2050))
 ~~~
 
 In order to get to that, we need
