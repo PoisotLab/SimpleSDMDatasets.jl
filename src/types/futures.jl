@@ -34,5 +34,6 @@ struct IPSL_CM6A_LR <: CMIP6Model end
 struct MIROC_ES2L <: CMIP6Model end
 struct MIROC6 <: CMIP6Model end
 struct MPI_ESM1_2_LR <: CMIP6Model end
+struct MPI_ESM1_2_HR <: CMIP6Model end
 struct MPI_ESM2_0 <: CMIP6Model end
 struct UKESM1_0_LL <: CMIP6Model end
