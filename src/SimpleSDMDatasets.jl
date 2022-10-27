@@ -21,7 +21,7 @@ include(joinpath(@__DIR__, "types", "providers.jl"))
 export RasterProvider, RasterDataset
 export BioClim, Elevation, MinimumTemperature, MaximumTemperature, AverageTemperature,
     Precipitation, SolarRadiation, WindSpeed, WaterVaporPressure, LandCover
-export WorldClim, EarthEnv
+export WorldClim, EarthEnv, CHELSA
 
 # Common interface
 include(joinpath(@__DIR__, "types", "interface.jl"))
@@ -29,6 +29,7 @@ include(joinpath(@__DIR__, "types", "interface.jl"))
 # Providers
 include(joinpath(@__DIR__, "providers", "worldclim.jl"))
 include(joinpath(@__DIR__, "providers", "earthenv.jl"))
+include(joinpath(@__DIR__, "providers", "chelsa.jl"))
 
 # Downloader function
 function slurp(

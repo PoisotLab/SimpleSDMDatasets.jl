@@ -7,6 +7,7 @@ tests = [
     "Type basics       " => "01_type_construction.jl",
     "WorldClim provider" => "02_worldclim.jl",
     "EarthEnv provider " => "03_earthenv.jl",
+    "CHELSA provider   " => "04_chelsa.jl",
 ]
 
 for test in tests
