@@ -4,8 +4,9 @@ using Test
 global anyerrors = false
 
 tests = [
-   "type" => "01_type_construction.jl",
-   "worldclim" => "02_worldclim.jl"
+    "Type basics       " => "01_type_construction.jl",
+    "WorldClim provider" => "02_worldclim.jl",
+    "EarthEnv provider " => "03_earthenv.jl",
 ]
 
 for test in tests
