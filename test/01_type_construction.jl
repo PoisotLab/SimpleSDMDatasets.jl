@@ -40,4 +40,6 @@ using Test
     layer = "Some stuff I guess",
 )
 
+@test_throws "dataset is not provided by" RasterData(WorldClim, HabitatHeterogeneity)
+
 end
