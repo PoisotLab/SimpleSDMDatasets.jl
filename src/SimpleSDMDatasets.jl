@@ -19,7 +19,8 @@ isdir(_LAYER_PATH) || mkpath(_LAYER_PATH)
 include(joinpath(@__DIR__, "types", "datasets.jl"))
 export RasterDataset
 export BioClim, Elevation, MinimumTemperature, MaximumTemperature, AverageTemperature,
-    Precipitation, SolarRadiation, WindSpeed, WaterVaporPressure, LandCover
+    Precipitation, SolarRadiation, WindSpeed, WaterVaporPressure, LandCover,
+    HabitatHeterogeneity, Topography
 
 include(joinpath(@__DIR__, "types", "providers.jl"))
 export RasterProvider
@@ -50,7 +51,7 @@ include(joinpath(@__DIR__, "providers", "worldclim_v2.jl"))
 
 # Downloader function
 function slurp(
-    data::RasterData{P,D};
+    data::RasterData{P, D};
     kwargs...,
 ) where {P <: RasterProvider, D <: RasterDataset}
     # TODO use traits to drop pairs from kwargs

@@ -17,3 +17,5 @@ struct SolarRadiation <: RasterDataset end
 struct WindSpeed <: RasterDataset end
 struct WaterVaporPressure <: RasterDataset end
 struct LandCover <: RasterDataset end
+struct HabitatHeterogeneity <: RasterDataset end
+struct Topography <: RasterDataset end
