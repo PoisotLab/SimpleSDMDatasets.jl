@@ -1,8 +1,16 @@
 CHELSADataset = Union{BioClim}
 
 # Update provisioning
-provides(::Type{CHELSA}) = Base.uniontypes(CHELSADataset)
 provides(::Type{CHELSA}, ::Type{T}) where {T <: CHELSADataset} = true
+provides(
+    ::Type{CHELSA},
+    ::Type{BioClim},
+    ::Type{SSP},
+    ::Type{CMOD},
+) where {
+    SSP <: Union{SSP126, SSP370, SSP585},
+    CMOD <: Union{GFDL_ESM4, IPSL_CM6A_LR, MPI_ESM1_2_HR, MRI_ESM2_0, UKESM1_0_LL},
+} = true
 
 # Update the layers
 layers(::Type{CHELSA}, ::Type{BioClim}) = "BIO" .* string.(1:19)
@@ -11,7 +19,7 @@ layers(::Type{CHELSA}, ::Type{BioClim}) = "BIO" .* string.(1:19)
 function source(
     ::Type{CHELSA},
     ::Type{BioClim};
-    layer="BIO1"
+    layer = "BIO1",
 )
     var_code =
         (layer isa Integer) ? layer : findfirst(isequal(layer), layers(CHELSA, BioClim))
