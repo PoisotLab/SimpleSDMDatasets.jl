@@ -8,16 +8,17 @@ using Test
 # Test the interface
 for T in Base.uniontypes(SimpleSDMDatasets.CHELSADataset)
     @test SimpleSDMDatasets.provides(CHELSA, T)
-    @test T in SimpleSDMDatasets.provides(CHELSA)
-    @test SimpleSDMDatasets.resolutions(CHELSA, T) |> isnothing
+    data = RasterData(CHELSA, BioClim)
+    @test SimpleSDMDatasets.resolutions(data) |> isnothing
 end
 
-@test SimpleSDMDatasets.months(CHELSA, BioClim) |> isnothing
-@test SimpleSDMDatasets.layers(CHELSA, BioClim) |> !isnothing
+@test SimpleSDMDatasets.months(RasterData(CHELSA, BioClim)) |> isnothing
+@test SimpleSDMDatasets.layers(RasterData(CHELSA, BioClim)) |> !isnothing
 
-@info slurp(CHELSA, BioClim; layer = "BIO8")
-@info slurp(CHELSA, BioClim; layer = "BIO1")
-@info slurp(CHELSA, BioClim; layer = "BIO12")
-@info SimpleSDMDatasets.layers(CHELSA, BioClim)
+begin
+    out = slurp(RasterData(CHELSA, BioClim); layer = "BIO12")
+    @test isfile(first(out))
+    @test out[2] == SimpleSDMDatasets.filetype(RasterData(CHELSA, BioClim))
+end
 
 end
