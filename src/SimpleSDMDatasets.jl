@@ -71,8 +71,7 @@ function vibecheck(data::R; kwargs...) where {R <: RasterData}
             if ~(1 <= values(kwargs).layer <= length(layers(data)))
                 error("The $(R) dataset only has $(length(layers(data))) layers")
             end
-        end
-        if ~(values(kwargs).layer in layers(data))
+        elseif ~(values(kwargs).layer in layers(data))
             error("The layer $(values(kwargs).layer) is not supported by the $(R) dataset")
         end
     end
