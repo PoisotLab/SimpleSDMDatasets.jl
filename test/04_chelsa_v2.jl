@@ -13,6 +13,7 @@ for T in Base.uniontypes(SimpleSDMDatasets.CHELSA2Dataset)
 end
 
 @test SimpleSDMDatasets.months(RasterData(CHELSA2, BioClim)) |> isnothing
+@test SimpleSDMDatasets.extrakeys(RasterData(CHELSA2, BioClim)) |> isnothing
 @test SimpleSDMDatasets.layers(RasterData(CHELSA2, BioClim)) |> !isnothing
 
 begin
