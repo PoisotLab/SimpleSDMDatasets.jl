@@ -50,4 +50,22 @@ begin
     @test out[2] == SimpleSDMDatasets.filetype(RasterData(EarthEnv, HabitatHeterogeneity))
 end
 
+begin
+    out = slurp(RasterData(EarthEnv, HabitatHeterogeneity); layer = 7)
+    @test isfile(first(out))
+    @test out[2] == SimpleSDMDatasets.filetype(RasterData(EarthEnv, HabitatHeterogeneity))
+end
+
+begin
+    out = slurp(RasterData(EarthEnv, HabitatHeterogeneity); layer = 9)
+    @test isfile(first(out))
+    @test out[2] == SimpleSDMDatasets.filetype(RasterData(EarthEnv, HabitatHeterogeneity))
+end
+
+begin
+    out = slurp(RasterData(EarthEnv, HabitatHeterogeneity); layer = 14)
+    @test isfile(first(out))
+    @test out[2] == SimpleSDMDatasets.filetype(RasterData(EarthEnv, HabitatHeterogeneity))
+end
+
 end

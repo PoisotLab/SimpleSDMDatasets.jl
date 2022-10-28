@@ -36,7 +36,7 @@ layers(::RasterData{EarthEnv, HabitatHeterogeneity}) = [
     "Homogeneity",
     "Maximum",
     "Uniformity",
-    "Varian",
+    "Variance",
 ]
 
 resolutions(::RasterData{EarthEnv, HabitatHeterogeneity}) =
