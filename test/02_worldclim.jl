@@ -25,6 +25,6 @@ end
 @info slurp(WorldClim, MinimumTemperature; resolution = 10.0, month = Month(4))
 @info slurp(WorldClim, MinimumTemperature; resolution = 2.5, month = Month(12))
 
-@info slurp(WorldClim, BioClim, SSP126, ACCESS_CM2)
+#@info slurp(WorldClim, BioClim, SSP126, ACCESS_CM2)
 
 end
