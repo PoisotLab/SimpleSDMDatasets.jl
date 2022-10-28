@@ -7,6 +7,6 @@ This package has a smaller mission statement, namely:
 2. implement this interface for commonly used data
 3. ensure that the raster data are downloaded as needed and stored in a central location
 4. provide enough checks that users can build on top of it rapidly (for example,
-   the wrapper for CHELSA2.1 data is only about 15 loc)
+   the wrapper for bioclim in CHELSA2.1 is only about 15 loc)
 
 For now this is a *work in progress*
