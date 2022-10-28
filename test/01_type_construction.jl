@@ -16,7 +16,7 @@ using Test
 )
 
 @test_throws ["The resolution", "is not supported by the"] slurp(
-    RasterData(WorldClim, BioClim);
+    RasterData(WorldClim2, BioClim);
     resolution = π,
 )
 
@@ -26,12 +26,12 @@ using Test
 )
 
 @test_throws ["The month", "not supported by the"] slurp(
-    RasterData(WorldClim, AverageTemperature);
+    RasterData(WorldClim2, AverageTemperature);
     month = "Marchtober",
 )
 
 @test_throws ["dataset only has"] slurp(
-    RasterData(WorldClim, BioClim);
+    RasterData(WorldClim2, BioClim);
     layer = 420,
 )
 
