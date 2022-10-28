@@ -35,4 +35,9 @@ using Test
     layer = 420,
 )
 
+@test_throws "does not allow for layer" slurp(
+    RasterData(WorldClim2, AverageTemperature);
+    layer = "Some stuff I guess",
+)
+
 end
