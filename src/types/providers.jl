@@ -8,4 +8,5 @@ abstract type RasterProvider end
 
 struct WorldClim2 <: RasterProvider end
 struct EarthEnv <: RasterProvider end
+struct CHELSA1 <: RasterProvider end
 struct CHELSA2 <: RasterProvider end

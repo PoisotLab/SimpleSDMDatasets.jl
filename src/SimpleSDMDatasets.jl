@@ -24,7 +24,7 @@ export BioClim, Elevation, MinimumTemperature, MaximumTemperature, AverageTemper
 
 include(joinpath(@__DIR__, "types", "providers.jl"))
 export RasterProvider
-export WorldClim2, EarthEnv, CHELSA2
+export WorldClim2, EarthEnv, CHELSA1, CHELSA2
 
 include(joinpath(@__DIR__, "types", "futures.jl"))
 export FutureScenario, FutureModel
@@ -45,6 +45,7 @@ export RasterData, Future
 include(joinpath(@__DIR__, "types", "interface.jl"))
 
 # Providers
+include(joinpath(@__DIR__, "providers", "chelsa_v1.jl"))
 include(joinpath(@__DIR__, "providers", "chelsa_v2.jl"))
 include(joinpath(@__DIR__, "providers", "earthenv.jl"))
 include(joinpath(@__DIR__, "providers", "worldclim_v2.jl"))
