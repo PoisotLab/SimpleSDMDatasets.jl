@@ -4,10 +4,10 @@ using Test
 global anyerrors = false
 
 tests = [
-    "Type basics       " => "01_type_construction.jl",
-    "WorldClim provider" => "02_worldclim.jl",
-    "EarthEnv provider " => "03_earthenv.jl",
-    "CHELSA provider   " => "04_chelsa.jl",
+    "Type basics        " => "01_type_construction.jl",
+    "WorldClim2 provider" => "02_worldclim_v2.jl",
+    "EarthEnv provider  " => "03_earthenv.jl",
+    "CHELSA2 provider   " => "04_chelsa_v2.jl",
 ]
 
 for test in tests

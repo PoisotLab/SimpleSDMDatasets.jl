@@ -1,4 +1,4 @@
-# Define the datasets that worldclim can provide - all of the entries in this array are `RasterDatasets`
+# Define the datasets that WorldClim2 can provide - all of the entries in this array are `RasterDatasets`
 wcdat = [
     BioClim,
     Elevation,
@@ -10,44 +10,44 @@ wcdat = [
     WindSpeed,
     WaterVaporPressure,
 ]
-WorldClimDataset = Union{wcdat...}
+WorldClim2Dataset = Union{wcdat...}
 
 # Update provisioning
-provides(::Type{WorldClim}, ::Type{T}) where {T <: WorldClimDataset} = true
+provides(::Type{WorldClim2}, ::Type{T}) where {T <: WorldClim2Dataset} = true
 
 # Update downloadtype
-downloadtype(::RasterData{WorldClim, T}) where {T <: WorldClimDataset} = :zip
+downloadtype(::RasterData{WorldClim2, T}) where {T <: WorldClim2Dataset} = :zip
 
 # Update the resolution
-resolutions(::RasterData{WorldClim, T}) where {T <: WorldClimDataset} =
+resolutions(::RasterData{WorldClim2, T}) where {T <: WorldClim2Dataset} =
     Dict([0.5 => "30s", 2.5 => "2.5m", 5.0 => "5m", 10.0 => "10m"])
 
 # Update the months
-months(::RasterData{WorldClim, T}) where {T <: WorldClimDataset} = Month.(1:12)
-months(::RasterData{WorldClim, BioClim}) = nothing
-months(::RasterData{WorldClim, Elevation}) = nothing
+months(::RasterData{WorldClim2, T}) where {T <: WorldClim2Dataset} = Month.(1:12)
+months(::RasterData{WorldClim2, BioClim}) = nothing
+months(::RasterData{WorldClim2, Elevation}) = nothing
 
 # Update the layers
-layers(::RasterData{WorldClim, BioClim}) = "BIO" .* string.(1:19)
+layers(::RasterData{WorldClim2, BioClim}) = "BIO" .* string.(1:19)
 
 # The following functions are the list of URL codes for the datasets. Note that
-# they dispatch on the dataset within the context of worldclim
-_var_slug(::RasterData{WorldClim, MinimumTemperature}) = "tmin"
-_var_slug(::RasterData{WorldClim, MaximumTemperature}) = "tmax"
-_var_slug(::RasterData{WorldClim, AverageTemperature}) = "tavg"
-_var_slug(::RasterData{WorldClim, Precipitation}) = "prec"
-_var_slug(::RasterData{WorldClim, SolarRadiation}) = "srad"
-_var_slug(::RasterData{WorldClim, WindSpeed}) = "wind"
-_var_slug(::RasterData{WorldClim, WaterVaporPressure}) = "vapr"
-_var_slug(::RasterData{WorldClim, BioClim}) = "bio"
-_var_slug(::RasterData{WorldClim, Elevation}) = "elev"
+# they dispatch on the dataset within the context of WorldClim2
+_var_slug(::RasterData{WorldClim2, MinimumTemperature}) = "tmin"
+_var_slug(::RasterData{WorldClim2, MaximumTemperature}) = "tmax"
+_var_slug(::RasterData{WorldClim2, AverageTemperature}) = "tavg"
+_var_slug(::RasterData{WorldClim2, Precipitation}) = "prec"
+_var_slug(::RasterData{WorldClim2, SolarRadiation}) = "srad"
+_var_slug(::RasterData{WorldClim2, WindSpeed}) = "wind"
+_var_slug(::RasterData{WorldClim2, WaterVaporPressure}) = "vapr"
+_var_slug(::RasterData{WorldClim2, BioClim}) = "bio"
+_var_slug(::RasterData{WorldClim2, Elevation}) = "elev"
 
 # Get the dataset source
 function source(
-    data::RasterData{WorldClim, D};
+    data::RasterData{WorldClim2, D};
     resolution = 10.0,
     args...,
-) where {D <: WorldClimDataset}
+) where {D <: WorldClim2Dataset}
     res_code = get(resolutions(data), resolution, "10m")
     var_code = _var_slug(data)
     root = "https://geodata.ucdavis.edu/climate/worldclim/2_1/base/"
@@ -60,10 +60,10 @@ function source(
 end
 
 function layername(
-    data::RasterData{WorldClim, D};
+    data::RasterData{WorldClim2, D};
     resolution = 10.0,
     month = Month(1),
-) where {D <: WorldClimDataset}
+) where {D <: WorldClim2Dataset}
     res_code = get(resolutions(data), resolution, "10m")
     var_code = _var_slug(data)
     layer_code = lpad(string(month.value), 2, '0')
@@ -71,7 +71,7 @@ function layername(
 end
 
 function layername(
-    data::RasterData{WorldClim, BioClim};
+    data::RasterData{WorldClim2, BioClim};
     resolution = 10.0,
     layer = "BIO1",
 )
@@ -82,7 +82,7 @@ function layername(
 end
 
 function layername(
-    data::RasterData{WorldClim, Elevation};
+    data::RasterData{WorldClim2, Elevation};
     resolution = 10.0,
 )
     res_code = get(resolutions(data), resolution, "10m")
