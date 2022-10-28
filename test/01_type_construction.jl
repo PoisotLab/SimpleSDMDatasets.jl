@@ -15,14 +15,24 @@ using Test
     resolution = π,
 )
 
-@test_throws "does not support multiple resolutions" slurp(
-    RasterData(EarthEnv, LandCover);
+@test_throws ["The resolution", "is not supported by the"] slurp(
+    RasterData(WorldClim, BioClim);
     resolution = π,
 )
 
 @test_throws ["The layer", "not supported by the"] slurp(
     RasterData(EarthEnv, LandCover);
     layer = "LMFAO",
+)
+
+@test_throws ["The month", "not supported by the"] slurp(
+    RasterData(WorldClim, AverageTemperature);
+    month = "Marchtober",
+)
+
+@test_throws ["dataset only has"] slurp(
+    RasterData(WorldClim, BioClim);
+    layer = 420,
 )
 
 end
