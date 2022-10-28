@@ -49,12 +49,32 @@ include(joinpath(@__DIR__, "providers", "chelsa_v2.jl"))
 include(joinpath(@__DIR__, "providers", "earthenv.jl"))
 include(joinpath(@__DIR__, "providers", "worldclim_v2.jl"))
 
+# Key checker function
+function vibecheck(data::R; kwargs...) where {R <: RasterData}
+    if isnothing(months(data))
+        @assert ~(:month in keys(kwargs))
+    end
+    if isnothing(layers(data))
+        @assert ~(:layer in keys(kwargs))
+    end
+    if isnothing(resolutions(data))
+        @assert ~(:resolution in keys(kwargs))
+    end
+    for k in keys(kwargs)
+        if ~(k in [:month, :layer, :resolution])
+            @assert k in keys(extrakeys(data))
+            # TODO assert the value as well
+        end
+    end
+    return nothing
+end
+
 # Downloader function
 function slurp(
     data::RasterData{P, D};
     kwargs...,
 ) where {P <: RasterProvider, D <: RasterDataset}
-    # TODO use traits to drop pairs from kwargs
+    vibecheck(data; kwargs...)
     url, fnm, dir = SimpleSDMDatasets.source(data; kwargs...)
     # Check for path existence
     isdir(dir) || mkpath(dir)

@@ -3,6 +3,9 @@ EarthEnvDataset = Union{LandCover, HabitatHeterogeneity}
 # Update provisioning
 provides(::Type{EarthEnv}, ::Type{T}) where {T <: EarthEnvDataset} = true
 
+# Additional keys for search
+extrakeys(::RasterData{EarthEnv, LandCover}) = Dict([:full=>(true,false)])
+
 # Update the layers
 layers(::RasterData{EarthEnv, LandCover}) = [
     "Evergreen/Deciduous Needleleaf Trees",

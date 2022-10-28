@@ -22,8 +22,11 @@ months(::R, ::F) where {R <: RasterData, F <: Future} = nothing
 layers(::R) where {R <: RasterData} = nothing
 layers(::R, ::F) where {R <: RasterData, F <: Future} = nothing
 
-# What is the destination/source of a dataset?
+# Are there extra allowed keys for the search?
+extrakeys(::R) where {R <: RasterData} = nothing
+extrakeys(::R, ::F) where {R <: RasterData, F <: Future} = nothing
 
+# What is the destination/source of a dataset?
 destination(::RasterData{P, D}; kwargs...) where {P <: RasterProvider, D <: RasterDataset} =
     joinpath(SimpleSDMDatasets._LAYER_PATH, string(P), string(D))
 
