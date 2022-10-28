@@ -1,15 +1,12 @@
-# Download interface
+# SimpleSDMDatasets
 
-What I want to write is:
+This *will* serve as a replacement for the data system in *SimpleSDMLayers.jl*.
+This package has a smaller mission statement, namely:
 
-~~~julia
-SimpleSDMPredictor(WorldClim2{BioClim}, SSP126{ACCESSCM2}; resolution=0.5, year=Year(2050))
-~~~
+1. provide a simple interface to get access to raster data
+2. implement this interface for commonly used data
+3. ensure that the raster data are downloaded as needed and stored in a central location
+4. provide enough checks that users can build on top of it rapidly (for example,
+   the wrapper for CHELSA2.1 data is only about 15 loc)
 
-In order to get to that, we need
-
-1. A type system for data sets and data providers (here `WorldClim2` is a data provider, and the dataset is `BioClim`)
-2. A way to ensure that the `eltype` of a provider is a valid dataset
-3. A type system for future scenarios under models (here the future is `SSP000` and the scenario is `CanESM12`)
-4. A way to ensure that the `eltype` of a future is a valid scenario
-5. A way to link these types together, which is simple for data sets/providers, but can be more nested for futures
+For now this is a *work in progress*
