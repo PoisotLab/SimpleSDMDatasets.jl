@@ -36,6 +36,10 @@ export ACCESS_CM2, ACCESS_ESM1_5, BCC_CSM2_MR, CanESM5, CanESM5_CanOE, CMCC_ESM2
     GFDL_ESM4, GISS_E2_1_G, GISS_E2_1_H, HadGEM3_GC31_LL, INM_CM4_8, INM_CM5_0,
     IPSL_CM6A_LR, MIROC_ES2L, MIROC6, MPI_ESM1_2_LR, MPI_ESM1_2_HR, MPI_ESM2_0, UKESM1_0_LL
 
+# Specifier types
+include(joinpath(@__DIR__, "types", "specifiers.jl"))
+export RasterData, Future
+
 # Common interface
 include(joinpath(@__DIR__, "types", "interface.jl"))
 

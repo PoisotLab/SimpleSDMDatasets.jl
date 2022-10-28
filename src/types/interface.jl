@@ -1,97 +1,35 @@
 # Is the dataset in the provider?
-provides(::Type{P}, ::Type{D}) where {P <: RasterProvider, D <: RasterDataset} = false
-
-provides(
-    ::Type{P},
-    ::Type{D},
-    ::Type{S},
-    ::Type{M},
-) where {P <: RasterProvider, D <: RasterDataset, S <: FutureScenario, M <: FutureModel} =
-    false
+provides(::R) where {R <: RasterData} = false
+provides(::R, ::F) where {R <: RasterData, F <: Future} = false
 
 # What file type is returned from each provider/set?
-downloadtype(::Type{P}) where {P <: RasterProvider} = :file
-
-downloadtype(::Type{P}, ::Type{D}) where {P <: RasterProvider, D <: RasterDataset} =
-    downloadtype(P)
-
-downloadtype(
-    ::Type{P},
-    ::Type{D},
-    ::Type{S},
-    ::Type{M},
-) where {P <: RasterProvider, D <: RasterDataset, S <: FutureScenario, M <: FutureModel} =
-    downloadtype(P, D)
+downloadtype(::R) where {R <: RasterData} = :file
+downloadtype(::R, ::F) where {R <: RasterData, F <: Future} = :file
 
 # What file type is returned from each provider/set?
-filetype(::Type{P}) where {P <: RasterProvider} = :tiff
-
-filetype(::Type{P}, ::Type{D}) where {P <: RasterProvider, D <: RasterDataset} =
-    filetype(P, D)
-
-filetype(
-    ::Type{P},
-    ::Type{D},
-    ::Type{S},
-    ::Type{M},
-) where {P <: RasterProvider, D <: RasterDataset, S <: FutureScenario, M <: FutureModel} =
-    filetype(P, D)
+filetype(::R) where {R <: RasterData} = :tiff
+filetype(::R, ::F) where {R <: RasterData, F <: Future} = :tiff
 
 # Is there a resolution for the dataset?
-resolutions(::Type{P}) where {P <: RasterProvider} = nothing
-
-resolutions(::Type{P}, ::Type{D}) where {P <: RasterProvider, D <: RasterDataset} =
-    resolutions(P)
-
-resolutions(
-    ::Type{P},
-    ::Type{D},
-    ::Type{S},
-    ::Type{M},
-) where {P <: RasterProvider, D <: RasterDataset, S <: FutureScenario, M <: FutureModel} =
-    resolutions(P, D)
+resolutions(::R) where {R <: RasterData} = nothing
+resolutions(::R, ::F) where {R <: RasterData, F <: Future} = nothing
 
 # Is there a monthly indexing for the dataset?
-months(::Type{P}) where {P <: RasterProvider} = nothing
-
-months(::Type{P}, ::Type{D}) where {P <: RasterProvider, D <: RasterDataset} =
-    months(P)
-
-months(
-    ::Type{P},
-    ::Type{D},
-    ::Type{S},
-    ::Type{M},
-) where {P <: RasterProvider, D <: RasterDataset, S <: FutureScenario, M <: FutureModel} =
-    months(P, D)
+months(::R) where {R <: RasterData} = nothing
+months(::R, ::F) where {R <: RasterData, F <: Future} = nothing
 
 # Are there layers we can access?
-layers(::Type{P}) where {P <: RasterProvider} = nothing
+layers(::R) where {R <: RasterData} = nothing
+layers(::R, ::F) where {R <: RasterData, F <: Future} = nothing
 
-layers(::Type{P}, ::Type{D}) where {P <: RasterProvider, D <: RasterDataset} =
-    layers(P)
+# What is the destination/source of a dataset?
 
-layers(
-    ::Type{P},
-    ::Type{D},
-    ::Type{S},
-    ::Type{M},
-) where {P <: RasterProvider, D <: RasterDataset, S <: FutureScenario, M <: FutureModel} =
-    layers(P, D)
-
-# What is the destination of a dataset?
-destination(
-    ::Type{P},
-    ::Type{D};
-    kwargs...,
-) where {P <: RasterProvider, D <: RasterDataset} =
+destination(::RasterData{P, D}; kwargs...) where {P <: RasterProvider, D <: RasterDataset} =
     joinpath(SimpleSDMDatasets._LAYER_PATH, string(P), string(D))
 
 destination(
-    ::Type{P},
-    ::Type{D},
-    ::Type{S},
-    ::Type{M};
+    ::RasterData{P, D},
+    ::Future{S, M};
     kwargs...,
 ) where {P <: RasterProvider, D <: RasterDataset, S <: FutureScenario, M <: FutureModel} =
     joinpath(
@@ -102,15 +40,12 @@ destination(
         replace(string(M), "_" => "-"),
     )
 
-# What is the source of a dataset?
-source(::Type{P}, ::Type{D}; kwargs...) where {P <: RasterProvider, D <: RasterDataset} =
+source(::RasterData{P, D}; kwargs...) where {P <: RasterProvider, D <: RasterDataset} =
     nothing
 
 source(
-    ::Type{P},
-    ::Type{D},
-    ::Type{S},
-    ::Type{M};
+    ::RasterData{P, D},
+    ::Future{S, M};
     kwargs...,
 ) where {P <: RasterProvider, D <: RasterDataset, S <: FutureScenario, M <: FutureModel} =
     nothing
