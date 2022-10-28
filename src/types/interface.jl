@@ -1,5 +1,5 @@
 # Is the dataset in the provider?
-provides(::R) where {R <: RasterData} = false
+provides(::Type{P}, ::Type{D}) where {P <: RasterProvider, D <: RasterDataset} = false
 provides(::R, ::F) where {R <: RasterData, F <: Future} = false
 
 # What file type is returned from each provider/set?

@@ -50,12 +50,11 @@ include(joinpath(@__DIR__, "providers", "chelsa.jl"))
 
 # Downloader function
 function slurp(
-    ::Type{P},
-    ::Type{D};
+    data::RasterData{P,D};
     kwargs...,
 ) where {P <: RasterProvider, D <: RasterDataset}
     # TODO use traits to drop pairs from kwargs
-    url, fnm, dir = SimpleSDMDatasets.source(P, D; kwargs...)
+    url, fnm, dir = SimpleSDMDatasets.source(data; kwargs...)
     # Check for path existence
     isdir(dir) || mkpath(dir)
     # Check for file existence, download if not
@@ -63,18 +62,18 @@ function slurp(
         Downloads.download(url, joinpath(dir, fnm))
     end
     # Check for the fileinfo
-    if isequal(:zip)(SimpleSDMDatasets.downloadtype(P, D))
+    if isequal(:zip)(SimpleSDMDatasets.downloadtype(data))
         # Extract only the layername
         r = ZipFile.Reader(joinpath(dir, fnm))
         for f in r.files
-            if isequal(layername(P, D; kwargs...))(f.name)
-                fnm = layername(P, D; kwargs...)
+            if isequal(layername(data; kwargs...))(f.name)
+                fnm = layername(data; kwargs...)
                 write(joinpath(dir, f.name), read(f, String))
             end
         end
         close(r)
     end
-    return (joinpath(dir, fnm), SimpleSDMDatasets.filetype(P, D), 1)
+    return (joinpath(dir, fnm), SimpleSDMDatasets.filetype(data), 1)
 end
 export slurp
 
