@@ -1,11 +1,10 @@
 EarthEnvDataset = Union{LandCover}
 
 # Update provisioning
-provides(::Type{EarthEnv}) = Base.uniontypes(EarthEnvDataset)
 provides(::Type{EarthEnv}, ::Type{T}) where {T <: EarthEnvDataset} = true
 
 # Update the layers
-layers(::Type{EarthEnv}, ::Type{LandCover}) = [
+layers(::RasterData{EarthEnv, LandCover}) = [
     "Evergreen/Deciduous Needleleaf Trees",
     "Evergreen Broadleaf Trees",
     "Deciduous Broadleaf Trees",
@@ -22,13 +21,12 @@ layers(::Type{EarthEnv}, ::Type{LandCover}) = [
 
 # Get the dataset source
 function source(
-    ::Type{EarthEnv},
-    ::Type{LandCover};
+    data::RasterData{EarthEnv, LandCover};
     layer = "Urban/Built-up",
     full = true,
 )
     var_code =
-        (layer isa Integer) ? layer : findfirst(isequal(layer), layers(EarthEnv, LandCover))
+        (layer isa Integer) ? layer : findfirst(isequal(layer), layers(data))
     root = if full
         "https://data.earthenv.org/consensus_landcover/with_DISCover/"
     else
@@ -42,6 +40,6 @@ function source(
     return (
         url = root * stem,
         filename = lowercase(stem),
-        outdir = destination(EarthEnv, LandCover),
+        outdir = destination(data),
     )
 end

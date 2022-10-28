@@ -8,14 +8,24 @@ using Test
 # Test the interface
 for T in Base.uniontypes(SimpleSDMDatasets.EarthEnvDataset)
     @test SimpleSDMDatasets.provides(EarthEnv, T)
-    @test T in SimpleSDMDatasets.provides(EarthEnv)
-    @test SimpleSDMDatasets.resolutions(EarthEnv, T) |> isnothing
+    data = RasterData(EarthEnv, T)
+    @test typeof(data) == RasterData{EarthEnv, T}
+    @test SimpleSDMDatasets.resolutions(data) |> isnothing
 end
 
-@test SimpleSDMDatasets.months(EarthEnv, LandCover) |> isnothing
-@test SimpleSDMDatasets.layers(EarthEnv, LandCover) |> !isnothing
+@test SimpleSDMDatasets.months(RasterData(EarthEnv, LandCover)) |> isnothing
+@test SimpleSDMDatasets.layers(RasterData(EarthEnv, LandCover)) |> !isnothing
 
-@info slurp(EarthEnv, LandCover; layer = "Snow/Ice")
-@info SimpleSDMDatasets.layers(EarthEnv, LandCover)
+begin
+    out = slurp(RasterData(EarthEnv, LandCover); layer = "Shrubs", full = true)
+    @test isfile(first(out))
+    @test out[2] == SimpleSDMDatasets.filetype(RasterData(EarthEnv, LandCover))
+end
+
+begin
+    out = slurp(RasterData(EarthEnv, LandCover); layer = "Shrubs", full = false)
+    @test isfile(first(out))
+    @test out[2] == SimpleSDMDatasets.filetype(RasterData(EarthEnv, LandCover))
+end
 
 end
