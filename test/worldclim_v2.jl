@@ -40,12 +40,12 @@ end
 
 begin
     out = downloader(
-        RasterData(WorldClim2, MinimumTemperature);
+        RasterData(WorldClim2, MaximumTemperature);
         resolution = 10.0,
         month = Month(4),
     )
     @test isfile(first(out))
-    @test out[2] == SimpleSDMDatasets.filetype(RasterData(WorldClim2, MinimumTemperature))
+    @test out[2] == SimpleSDMDatasets.filetype(RasterData(WorldClim2, MaximumTemperature))
 end
 
 begin
@@ -58,6 +58,44 @@ begin
     @test out[2] == SimpleSDMDatasets.filetype(RasterData(WorldClim2, MinimumTemperature))
 end
 
-#@info downloader(WorldClim2, BioClim, SSP126, ACCESS_CM2)
+begin
+    out = downloader(
+        RasterData(WorldClim2, AverageTemperatire);
+        resolution = 10.0,
+        month = Month(4),
+    )
+    @test isfile(first(out))
+    @test out[2] == SimpleSDMDatasets.filetype(RasterData(WorldClim2, AverageTemperature))
+end
+
+begin
+    out = downloader(
+        RasterData(WorldClim2, SolarRadiation);
+        resolution = 10.0,
+        month = Month(4),
+    )
+    @test isfile(first(out))
+    @test out[2] == SimpleSDMDatasets.filetype(RasterData(WorldClim2, SolarRadiation))
+end
+
+begin
+    out = downloader(
+        RasterData(WorldClim2, WindSpeed);
+        resolution = 10.0,
+        month = Month(4),
+    )
+    @test isfile(first(out))
+    @test out[2] == SimpleSDMDatasets.filetype(RasterData(WorldClim2, WindSpeed))
+end
+
+begin
+    out = downloader(
+        RasterData(WorldClim2, WaterVaporPressure);
+        resolution = 10.0,
+        month = Month(4),
+    )
+    @test isfile(first(out))
+    @test out[2] == SimpleSDMDatasets.filetype(RasterData(WorldClim2, WaterVaporPressure))
+end
 
 end
