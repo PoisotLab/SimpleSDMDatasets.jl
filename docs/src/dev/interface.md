@@ -10,6 +10,16 @@ assume that future data are provided with the same format as current data). This
 means that most of the functions will not need to be overloaded when adding a
 provider with support for future data.
 
+The interface is built around the idea that *Julia* will use the most specific
+version of a method first, and resort to the less generic ones when there are
+multiple matches. A good example is the `BioClim` dataset, provided by a number
+of sources, that often has different URLs and filenames. This is handled (in
+*e.g.* `CHELSA2`) by writing a method for the general case of any dataset
+`RasterData{CHELSA2,T}` (using a `Union` type), and then a specific method on
+`RasterData{CHELSA2,BioClim}`. In the case of `CHELSA2`, the general method
+handles all datasets *except* `BioClim`, which makes the code much easier to
+write and maintain.
+
 ## Compatibility between datasets and providers
 
 The inner constructor for `RasterData` involves a call to `provides`, which must
