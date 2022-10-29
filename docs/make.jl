@@ -11,3 +11,7 @@ makedocs(;
         "Interface" => "interface.md",
     ],
 )
+
+deploydocs(;
+    repo = "github.com/PoisotLab/SimpleSDMDatasets.jl.git",
+)
