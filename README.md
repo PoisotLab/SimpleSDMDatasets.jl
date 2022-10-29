@@ -1,6 +1,11 @@
 # SimpleSDMDatasets
 
 This *will* serve as a replacement for the data system in *SimpleSDMLayers.jl*.
+
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/PoisotLab/SimpleSDMDatasets.jl/Test%20suite?style=flat-square) ![Codecov](https://img.shields.io/codecov/c/github/PoisotLab/SimpleSDMDatasets.jl?style=flat-square)
+
+![GitHub top language](https://img.shields.io/github/languages/top/PoisotLab/SimpleSDMDatasets.jl?style=flat-square&logo=julia)
+
 This package has a smaller mission statement, namely:
 
 1. provide a simple interface to get access to raster data
