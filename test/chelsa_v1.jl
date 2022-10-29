@@ -9,7 +9,7 @@ using Dates
 # Test the interface
 for T in Base.uniontypes(SimpleSDMDatasets.CHELSA1Dataset)
     @test SimpleSDMDatasets.provides(CHELSA1, T)
-    data = RasterData(CHELSA1, BioClim)
+    data = RasterData(CHELSA1, T)
     @test SimpleSDMDatasets.resolutions(data) |> isnothing
 end
 

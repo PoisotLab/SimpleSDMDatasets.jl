@@ -56,6 +56,12 @@ SimpleSDMDatasets.layerdescriptions
 SimpleSDMDatasets.months
 ```
 
+## Available years
+
+```@docs
+SimpleSDMDatasets.timespans
+```
+
 ## Additional keyword arguments
 
 ```@docs

@@ -116,9 +116,20 @@ months(::R) where {R <: RasterData} = nothing
 months(data::R, ::F) where {R <: RasterData, F <: Future} = months(data)
 
 """
-TODO DOCUMENT
+    timespans(data::R, ::F) where {R <: RasterData, F <: Future}
+
+For datasets with a `Future` scenario, this method should return a `Vector` of
+`Pairs`, which are formatted as
+
+~~~
+Year(start) => Year(end)
+~~~
+
+There is a method working on a single `RasterData` argument, defaulting to
+returning `nothing`, but it *should never* be overloaded.
 """
-timespans(args...) = nothing
+timespans(::R, ::F) where {R <: RasterData, F <: Future} = nothing
+timespans(::R) where {R <: RasterData} = nothing
 
 """
     layers(::R) where {R <: RasterData}
