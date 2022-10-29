@@ -10,6 +10,12 @@ makedocs(;
         "Index" => "index.md",
         "Guide for users" => [
             "Retrieving data" => "usr/getdata.md",
+            "List of providers" => [
+                "CHELSA (version 1)" => "usr/CHELSA1.md",
+                "CHELSA (version 2)" => "usr/CHELSA2.md",
+                "WorldClim (version 2)" => "usr/WorldClim2.md",
+                "EarthEnv" => "usr/EarthEnv.md",
+            ]
         ],
         "Guide for contributors" => [
             "How it fits together" => "dev/internals.md",
