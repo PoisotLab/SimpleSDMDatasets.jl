@@ -18,6 +18,4 @@ makedocs(;
     ],
 )
 
-deploydocs(;
-    repo = "github.com/PoisotLab/SimpleSDMDatasets.jl.git",
-)
+deploydocs(; repo = "github.com/PoisotLab/SimpleSDMDatasets.jl.git")
