@@ -3,8 +3,12 @@
 This page is meant for *contributors* to the package, and specifically provides
 information on the interface, what to overload, and why.
 
-```@contents
-```
+All of the methods that form the interface have two versions: one for current
+data, and one for future data. The default behavior of the interface is for the
+version on future data to fall back to the version for current data (*i.e.* we
+assume that future data are provided with the same format as current data). This
+means that most of the functions will not need to be overloaded when adding a
+provider with support for future data.
 
 ## Compatibility between datasets and providers
 

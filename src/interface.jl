@@ -133,6 +133,15 @@ layers(::R) where {R <: RasterData} = nothing
 layers(data::R, ::F) where {R <: RasterData, F <: Future} = layers(data)
 
 """
+    layerdescription(data::R) where {R <: RasterData}
+
+Human-readable names the layers. This will by default print the value of
+`layers`, but can be overloaded if these names are not informative.
+"""
+layerdescription(data::R) where {R <: RasterData} = layers(data)
+layerdescription(data::R, ::F) where {R <: RasterData, F <: Future} = layerdescription(data)
+
+"""
     extrakeys(::R) where {R <: RasterData}
 
 This method controls whether the dataset has additional keys. If this is

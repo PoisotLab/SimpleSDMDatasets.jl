@@ -1,8 +1,5 @@
 # Type system for datasets
 
-```@contents
-```
-
 ## List of datasets
 
  ```@docs
