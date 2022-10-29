@@ -60,7 +60,7 @@ end
 
 begin
     out = downloader(
-        RasterData(WorldClim2, AverageTemperatire);
+        RasterData(WorldClim2, AverageTemperature);
         resolution = 10.0,
         month = Month(4),
     )
