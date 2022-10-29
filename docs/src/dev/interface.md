@@ -38,6 +38,7 @@ SimpleSDMDatasets.resolutions
 
 ```@docs
 SimpleSDMDatasets.layers
+SimpleSDMDatasets.layerdescriptions
 ```
 
 ## Available months
