@@ -18,31 +18,31 @@ end
 @test SimpleSDMDatasets.layers(RasterData(CHELSA1, BioClim)) |> !isnothing
 
 begin
-    out = slurp(RasterData(CHELSA1, BioClim); layer = "BIO12")
+    out = downloader(RasterData(CHELSA1, BioClim); layer = "BIO12")
     @test isfile(first(out))
     @test out[2] == SimpleSDMDatasets.filetype(RasterData(CHELSA1, BioClim))
 end
 
 begin
-    out = slurp(RasterData(CHELSA1, AverageTemperature); month = Month(6))
+    out = downloader(RasterData(CHELSA1, AverageTemperature); month = Month(6))
     @test isfile(first(out))
     @test out[2] == SimpleSDMDatasets.filetype(RasterData(CHELSA1, AverageTemperature))
 end
 
 begin
-    out = slurp(RasterData(CHELSA1, MinimumTemperature); month = Month(12))
+    out = downloader(RasterData(CHELSA1, MinimumTemperature); month = Month(12))
     @test isfile(first(out))
     @test out[2] == SimpleSDMDatasets.filetype(RasterData(CHELSA1, MinimumTemperature))
 end
 
 begin
-    out = slurp(RasterData(CHELSA1, MaximumTemperature); month = Month(1))
+    out = downloader(RasterData(CHELSA1, MaximumTemperature); month = Month(1))
     @test isfile(first(out))
     @test out[2] == SimpleSDMDatasets.filetype(RasterData(CHELSA1, MaximumTemperature))
 end
 
 begin
-    out = slurp(RasterData(CHELSA1, Precipitation); month = Month(10))
+    out = downloader(RasterData(CHELSA1, Precipitation); month = Month(10))
     @test isfile(first(out))
     @test out[2] == SimpleSDMDatasets.filetype(RasterData(CHELSA1, Precipitation))
 end

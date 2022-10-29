@@ -16,7 +16,7 @@ WorldClim2Dataset = Union{wcdat...}
 provides(::Type{WorldClim2}, ::Type{T}) where {T <: WorldClim2Dataset} = true
 
 # Update downloadtype
-downloadtype(::RasterData{WorldClim2, T}) where {T <: WorldClim2Dataset} = :zip
+downloadtype(::RasterData{WorldClim2, T}) where {T <: WorldClim2Dataset} = _zip
 
 # Update the resolution
 resolutions(::RasterData{WorldClim2, T}) where {T <: WorldClim2Dataset} =

@@ -21,25 +21,25 @@ end
 @test SimpleSDMDatasets.layers(RasterData(WorldClim2, BioClim)) |> !isnothing
 
 begin
-    out = slurp(RasterData(WorldClim2, BioClim); resolution = 10.0, layer = "BIO8")
+    out = downloader(RasterData(WorldClim2, BioClim); resolution = 10.0, layer = "BIO8")
     @test isfile(first(out))
     @test out[2] == SimpleSDMDatasets.filetype(RasterData(WorldClim2, BioClim))
 end
 
 begin
-    out = slurp(RasterData(WorldClim2, BioClim); resolution = 5.0, layer = "BIO4")
+    out = downloader(RasterData(WorldClim2, BioClim); resolution = 5.0, layer = "BIO4")
     @test isfile(first(out))
     @test out[2] == SimpleSDMDatasets.filetype(RasterData(WorldClim2, BioClim))
 end
 
 begin
-    out = slurp(RasterData(WorldClim2, Elevation); resolution = 5.0)
+    out = downloader(RasterData(WorldClim2, Elevation); resolution = 5.0)
     @test isfile(first(out))
     @test out[2] == SimpleSDMDatasets.filetype(RasterData(WorldClim2, Elevation))
 end
 
 begin
-    out = slurp(
+    out = downloader(
         RasterData(WorldClim2, MinimumTemperature);
         resolution = 10.0,
         month = Month(4),
@@ -49,7 +49,7 @@ begin
 end
 
 begin
-    out = slurp(
+    out = downloader(
         RasterData(WorldClim2, MinimumTemperature);
         resolution = 2.5,
         month = Month(12),
@@ -58,6 +58,6 @@ begin
     @test out[2] == SimpleSDMDatasets.filetype(RasterData(WorldClim2, MinimumTemperature))
 end
 
-#@info slurp(WorldClim2, BioClim, SSP126, ACCESS_CM2)
+#@info downloader(WorldClim2, BioClim, SSP126, ACCESS_CM2)
 
 end

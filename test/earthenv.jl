@@ -19,19 +19,19 @@ end
       !isnothing
 
 begin
-    out = slurp(RasterData(EarthEnv, LandCover); layer = "Shrubs", full = true)
+    out = downloader(RasterData(EarthEnv, LandCover); layer = "Shrubs", full = true)
     @test isfile(first(out))
     @test out[2] == SimpleSDMDatasets.filetype(RasterData(EarthEnv, LandCover))
 end
 
 begin
-    out = slurp(RasterData(EarthEnv, LandCover); layer = "Shrubs", full = false)
+    out = downloader(RasterData(EarthEnv, LandCover); layer = "Shrubs", full = false)
     @test isfile(first(out))
     @test out[2] == SimpleSDMDatasets.filetype(RasterData(EarthEnv, LandCover))
 end
 
 begin
-    out = slurp(
+    out = downloader(
         RasterData(EarthEnv, HabitatHeterogeneity);
         layer = "Standard deviation",
         resolution = 2.5,
@@ -41,7 +41,7 @@ begin
 end
 
 begin
-    out = slurp(
+    out = downloader(
         RasterData(EarthEnv, HabitatHeterogeneity);
         layer = "Range",
         resolution = 12.5,
@@ -51,19 +51,19 @@ begin
 end
 
 begin
-    out = slurp(RasterData(EarthEnv, HabitatHeterogeneity); layer = 7)
+    out = downloader(RasterData(EarthEnv, HabitatHeterogeneity); layer = 7)
     @test isfile(first(out))
     @test out[2] == SimpleSDMDatasets.filetype(RasterData(EarthEnv, HabitatHeterogeneity))
 end
 
 begin
-    out = slurp(RasterData(EarthEnv, HabitatHeterogeneity); layer = 9)
+    out = downloader(RasterData(EarthEnv, HabitatHeterogeneity); layer = 9)
     @test isfile(first(out))
     @test out[2] == SimpleSDMDatasets.filetype(RasterData(EarthEnv, HabitatHeterogeneity))
 end
 
 begin
-    out = slurp(RasterData(EarthEnv, HabitatHeterogeneity); layer = 14)
+    out = downloader(RasterData(EarthEnv, HabitatHeterogeneity); layer = 14)
     @test isfile(first(out))
     @test out[2] == SimpleSDMDatasets.filetype(RasterData(EarthEnv, HabitatHeterogeneity))
 end

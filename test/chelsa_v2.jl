@@ -17,7 +17,7 @@ end
 @test SimpleSDMDatasets.layers(RasterData(CHELSA2, BioClim)) |> !isnothing
 
 begin
-    out = slurp(RasterData(CHELSA2, BioClim); layer = "BIO12")
+    out = downloader(RasterData(CHELSA2, BioClim); layer = "BIO12")
     @test isfile(first(out))
     @test out[2] == SimpleSDMDatasets.filetype(RasterData(CHELSA2, BioClim))
 end
