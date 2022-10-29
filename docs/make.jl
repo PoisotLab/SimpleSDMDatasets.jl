@@ -8,7 +8,13 @@ makedocs(;
     ),
     pages = [
         "Index" => "index.md",
-        "Interface" => "interface.md",
+        "Guide for users" => [
+            "Retrieving data" => "usr/getdata.md",
+        ],
+        "Guide for contributors" => [
+            "Interface" => "dev/interface.md",
+            "Type system" => "dev/types.md",
+        ],
     ],
 )
 
