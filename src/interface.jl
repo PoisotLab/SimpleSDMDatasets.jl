@@ -116,6 +116,11 @@ months(::R) where {R <: RasterData} = nothing
 months(data::R, ::F) where {R <: RasterData, F <: Future} = months(data)
 
 """
+TODO DOCUMENT
+"""
+timespans(args...) = nothing
+
+"""
     layers(::R) where {R <: RasterData}
 
 This method controls whether the dataset has named layers. If this is `nothing`
