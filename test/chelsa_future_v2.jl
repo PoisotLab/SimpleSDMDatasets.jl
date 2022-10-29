@@ -15,6 +15,7 @@ for D in Base.uniontypes(SimpleSDMDatasets.CHELSA2FutureDataset)
             @test SimpleSDMDatasets.provides(data, future)
             @test SimpleSDMDatasets.resolutions(data, future) |> isnothing
             @test SimpleSDMDatasets.extrakeys(data, future) |> isnothing
+            @test SimpleSDMDatasets.timespans(data, future) |> !isnothing
             if D <: BioClim
                 @test SimpleSDMDatasets.months(data, future) |> isnothing
                 @test SimpleSDMDatasets.layers(data, future) |> !isnothing
@@ -35,7 +36,12 @@ end
 
 begin
     data, future = RasterData(CHELSA2, AverageTemperature), Future(SSP126, IPSL_CM6A_LR)
-    out = downloader(data, future; month = Month(4), timespan = first(timespans(data, future)))
+    out = downloader(
+        data,
+        future;
+        month = Month(4),
+        timespan = first(timespans(data, future)),
+    )
     @test isfile(first(out))
     @test out[2] == SimpleSDMDatasets.filetype(data, future)
 end
