@@ -12,6 +12,7 @@ makedocs(;
             "Retrieving data" => "usr/getdata.md",
         ],
         "Guide for contributors" => [
+            "How it fits together" => "dev/internals.md",
             "Interface" => "dev/interface.md",
             "Type system" => "dev/types.md",
         ],

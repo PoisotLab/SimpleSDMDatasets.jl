@@ -29,7 +29,7 @@ return `true` in order for the corresponding `RasterData` type to exist.
 
 In practice, especially when there are multiple datasets for a single provider,
 the easiest way is to define a `Union` type and overload based on membership to
-this union type.
+this union type, as touched upon earlier in this document.
 
 ```@docs
 SimpleSDMDatasets.provides
@@ -37,14 +37,41 @@ SimpleSDMDatasets.provides
 
 ## Type of object downloaded
 
+The specification about the format of downloaded files is managed by
+`downloadtype`. By default, we assume that a request to a usable dataset is
+returning a single file, but this can be overloaded for the providers who return
+an archive.
+
 ```@docs
 SimpleSDMDatasets.downloadtype
 ```
 
+The return type of the `downloadtype` must be one of the `RasterDownloadType`
+enum, which can be extended if adding a new provider requires a new format for
+the download.
+
+```@docs
+SimpleSDMDatasets.RasterDownloadType
+```
+
 ## Type of object stored
+
+The specification about the format of the information contained in the
+downloaded type is managed by `filetype`. By default, we assume that a request
+to a usable dataset is returning a `tiff`, but this can be overloaded for the
+providers who return data in another format. Note that *if* the download type is
+an archive, the file type describes the format of the files within the archive.
 
 ```@docs
 SimpleSDMDatasets.filetype
+```
+
+The return type of the `filetype` must be one of the `RasterFileType`
+enum, which can be extended if adding a new provider requires a new format for
+the download.
+
+```@docs
+SimpleSDMDatasets.RasterFileType
 ```
 
 ## Available resolutions

@@ -53,6 +53,8 @@ end
 
 function keychecker(data::R, future::F; kwargs...) where {R <: RasterData, F <: Future}
 
+    @assert SimpleSDMDatasets.provides(data, future)
+
     # Check for month
     if :month in keys(kwargs)
         if isnothing(months(data, future))
