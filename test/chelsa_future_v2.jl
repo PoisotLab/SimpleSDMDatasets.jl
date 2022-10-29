@@ -40,7 +40,7 @@ begin
         data,
         future;
         month = Month(4),
-        timespan = first(timespans(data, future)),
+        timespan = first(SimpleSDMDatasets.timespans(data, future)),
     )
     @test isfile(first(out))
     @test out[2] == SimpleSDMDatasets.filetype(data, future)

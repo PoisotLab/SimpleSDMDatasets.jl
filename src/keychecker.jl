@@ -68,7 +68,7 @@ function keychecker(data::R, future::F; kwargs...) where {R <: RasterData, F <: 
         if isnothing(timespans(data, future))
             error("The $(R) dataset does not allow for timespan as a keyword argument under $(F)")
         end
-        if ~(values(kwargs).timespan in timespans(data))
+        if ~(values(kwargs).timespan in timespans(data, future))
             error("The timespan $(values(kwargs).month) is not supported by the $(R) dataset under $(F)")
         end
     end
@@ -101,7 +101,7 @@ function keychecker(data::R, future::F; kwargs...) where {R <: RasterData, F <: 
 
     # Check for allowed extra keys
     for k in keys(kwargs)
-        if ~(k in [:month, :layer, :resolution])
+        if ~(k in [:month, :layer, :resolution, :timespan])
             if k in keys(extrakeys(data))
                 if ~(values(kwargs)[k] in extrakeys(data)[k])
                     error(
