@@ -139,7 +139,8 @@ Human-readable names the layers. This will by default print the value of
 `layers`, but can be overloaded if these names are not informative.
 """
 layerdescriptions(data::R) where {R <: RasterData} = layers(data)
-layerdescriptions(data::R, ::F) where {R <: RasterData, F <: Future} = layerdescriptions(data)
+layerdescriptions(data::R, ::F) where {R <: RasterData, F <: Future} =
+    layerdescriptions(data)
 
 """
     extrakeys(::R) where {R <: RasterData}
@@ -160,7 +161,13 @@ arguments specified in the return value.
 extrakeys(::R) where {R <: RasterData} = nothing
 extrakeys(data::R, ::F) where {R <: RasterData, F <: Future} = extrakeys(data)
 
-# What is the destination/source of a dataset?
+"""
+    destination(::RasterData{P, D}; kwargs...) where {P <: RasterProvider, D <: RasterDataset}
+
+This method specifies where the data should be stored *locally*. By default, it
+is the `_LAYER_PATH`, followed by the provider name, followed by the dataset
+name.
+"""
 destination(::RasterData{P, D}; kwargs...) where {P <: RasterProvider, D <: RasterDataset} =
     joinpath(SimpleSDMDatasets._LAYER_PATH, string(P), string(D))
 
@@ -177,6 +184,12 @@ destination(
         replace(string(M), "_" => "-"),
     )
 
+"""
+    source(::RasterData{P, D}; kwargs...) where {P <: RasterProvider, D <: RasterDataset}
+
+This method specifies the URL for the data. It defaults to `nothing`, so this
+method *must* be overloaded.
+"""
 source(::RasterData{P, D}; kwargs...) where {P <: RasterProvider, D <: RasterDataset} =
     nothing
 
