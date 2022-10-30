@@ -52,6 +52,7 @@ include(joinpath(@__DIR__, "providers", "CHELSA", "chelsa_v2.jl"))
 include(joinpath(@__DIR__, "providers", "CHELSA", "chelsa_future_v2.jl"))
 include(joinpath(@__DIR__, "providers", "EarthEnv", "earthenv.jl"))
 include(joinpath(@__DIR__, "providers", "WorldClim", "worldclim_v2.jl"))
+include(joinpath(@__DIR__, "providers", "WorldClim", "worldclim_future_v2.jl"))
 
 # Key checker
 include(joinpath(@__DIR__, "keychecker.jl"))

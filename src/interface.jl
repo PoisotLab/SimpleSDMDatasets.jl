@@ -215,3 +215,9 @@ source(
     kwargs...,
 ) where {P <: RasterProvider, D <: RasterDataset, S <: FutureScenario, M <: FutureModel} =
     nothing
+
+layername(::R; kwargs...) where {R <: RasterData} = ""
+layername(::R, ::F; kwargs...) where {R <: RasterData, F <: Future} = ""
+
+bandnumber(::R; kwargs...) where {R <: RasterData} = 1
+bandnumber(::R, ::F; kwargs...) where {R <: RasterData, F <: Future} = 1

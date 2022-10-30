@@ -28,7 +28,11 @@ function downloader(
     end
 
     # Return everything as a tuple
-    return (joinpath(dir, fnm), SimpleSDMDatasets.filetype(data), 1)
+    return (
+        joinpath(dir, fnm),
+        SimpleSDMDatasets.filetype(data),
+        SimpleSDMDatasets.bandnumber(data; kwargs...),
+    )
 end
 
 function downloader(
@@ -53,8 +57,8 @@ function downloader(
         # Extract only the layername
         r = ZipFile.Reader(joinpath(dir, fnm))
         for f in r.files
-            if isequal(layername(data, future; kwargs...))(f.name)
-                fnm = layername(data, future; kwargs...)
+            if isequal(SimpleSDMDatasets.layername(data, future; kwargs...))(f.name)
+                fnm = SimpleSDMDatasets.layername(data, future; kwargs...)
                 write(joinpath(dir, f.name), read(f, String))
             end
         end
@@ -62,5 +66,9 @@ function downloader(
     end
 
     # Return everything as a tuple
-    return (joinpath(dir, fnm), SimpleSDMDatasets.filetype(data, future), 1)
+    return (
+        joinpath(dir, fnm),
+        SimpleSDMDatasets.filetype(data, future),
+        SimpleSDMDatasets.bandnumber(data, future; kwargs...),
+    )
 end
