@@ -1,5 +1,11 @@
 using Documenter
 using SimpleSDMDatasets
+using InteractiveUtils
+using Markdown
+using Dates
+
+# Prepare the report card
+include(joinpath(@__DIR__, "report.jl"))
 
 makedocs(;
     sitename = "SimpleSDMDatasets.jl",
@@ -15,7 +21,7 @@ makedocs(;
                 "CHELSA (version 2)" => "usr/CHELSA2.md",
                 "WorldClim (version 2)" => "usr/WorldClim2.md",
                 "EarthEnv" => "usr/EarthEnv.md",
-            ]
+            ],
         ],
         "Guide for contributors" => [
             "How it fits together" => "dev/internals.md",
